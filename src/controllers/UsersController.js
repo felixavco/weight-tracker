@@ -71,7 +71,7 @@ class UsersController {
                     const payload = { id, name, user_name };
 
                     //* Generate Token
-                    const token = await jwt.sign(payload, SECRET, { expiresIn: 2592000 }); //* Expires in 30 days
+                    const token = await jwt.sign(payload, SECRET, { expiresIn: '30d' }); //* Expires in 30 days
                     res.status(200).json({
                         success: true,
                         type: 'Bearer',
@@ -117,7 +117,11 @@ class UsersController {
 
                 const users = await User.find();
 
-                res.json(users);
+                const response = users.map(user => { 
+                    return { id: user._id, name: user.name }
+                })                
+
+                res.json(response);
 
             } catch (error) {
                 res.status(500).json({ ERROR: error.toString() });
