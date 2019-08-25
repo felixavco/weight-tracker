@@ -86,7 +86,7 @@ class UsersController {
     }
 
     /**
-    * @Route '/api/user/'
+    * @Route '/api/user'
     * @Method POST
     * @Access Protected
     */
@@ -107,7 +107,7 @@ class UsersController {
     }
 
     /**
-    * @Route '/api/user/'
+    * @Route '/api/user'
     * @Method GET
     * @Access Protected
     */
@@ -135,7 +135,7 @@ class UsersController {
             try {
                 const { user_id } = req.params;
 
-                const user = await User.findById({ _id: user_id });
+                const user = await User.findById(user_id);
 
                 if (!user) {
                     return res.status(404).json({ error: 'No ha encontrado ningun usuario' });
@@ -162,6 +162,10 @@ class UsersController {
 
                 const user = await User.findByIdAndUpdate(user_id, { name }, { new: true });
 
+                if (!user) {
+                    return res.status(404).json({ error: 'No ha encontrado ningun usuario' });
+                }
+
                 res.json(user);
 
             } catch (error) {
@@ -183,6 +187,40 @@ class UsersController {
                 await User.findByIdAndDelete(user_id);
 
                 res.json({ msg: 'OK' });
+
+            } catch (error) {
+                res.status(500).json({ ERROR: error.toString() });
+            }
+        }
+    }
+
+    /**
+    * @Route '/api/user/:user_id/insert'
+    * @Method PUT 
+    * @Access Protected
+    */
+    insertWeight() {
+        return async (req, res) => {
+            try {
+
+                const { user_id } = req.params;
+                const { weight } = req.body;
+
+                //* Find User 
+                let user = await User.findById(user_id);
+                if (!user) {
+                    return res.status(404).json({ error: 'No ha encontrado ningun usuario' });
+                }
+
+                const { weight_history } = user;
+
+                //* add new weight entry and spread current weight history
+                const newEntry = [{ weight }, ...weight_history];
+
+                //* Update user with new weight history
+                user = await User.findByIdAndUpdate(user_id, { weight_history: newEntry }, { new: true });
+
+                res.json(user);
 
             } catch (error) {
                 res.status(500).json({ ERROR: error.toString() });
