@@ -1,38 +1,43 @@
 {
-  "name": "weight-tracker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/felixavco/weight-tracker.git"
-  },
-  "author": "Felix Avelar",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/felixavco/weight-tracker/issues"
-  },
-  "homepage": "https://github.com/felixavco/weight-tracker#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.6.9",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "validator": "^11.1.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
-    "nodemon": "^1.19.1"
-  }
+ "name": "weight-tracker",
+ "version": "1.0.0",
+ "description": "",
+ "main": "index.js",
+ "scripts": {
+  "dev": "nodemon -r dotenv/config ./bin/dev",
+  "clean": "rm -rf dist",
+  "copy": "cp -r src/views dist && cp -r src/public dist && cp -r src/uploads dist",
+  "build": "mkdir dist && babel src -s -d dist && npm run copy ",
+  "production": "npm run clean && npm run build && node -r dotenv/config ./bin/production"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/felixavco/weight-tracker.git"
+ },
+ "author": "Felix Avelar",
+ "license": "ISC",
+ "bugs": {
+  "url": "https://github.com/felixavco/weight-tracker/issues"
+ },
+ "homepage": "https://github.com/felixavco/weight-tracker#readme",
+ "dependencies": {
+  "bcryptjs": "^2.4.3",
+  "cors": "^2.8.5",
+  "dotenv": "^8.1.0",
+  "express": "^4.17.1",
+  "jsonwebtoken": "^8.5.1",
+  "mongoose": "^5.6.9",
+  "morgan": "^1.9.1",
+  "passport": "^0.4.0",
+  "passport-jwt": "^4.0.0",
+  "validator": "^11.1.0"
+ },
+ "devDependencies": {
+  "@babel/cli": "^7.5.5",
+  "@babel/core": "^7.5.5",
+  "@babel/plugin-proposal-class-properties": "^7.5.5",
+  "@babel/preset-env": "^7.5.5",
+  "@babel/register": "^7.5.5",
+  "nodemon": "^1.19.1"
+ }
 }
