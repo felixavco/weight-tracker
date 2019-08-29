@@ -118,7 +118,7 @@ class UsersController {
                 const users = await User.find();
 
                 const response = users.map(user => { 
-                    return { id: user._id, name: user.name }
+                    return { id: user._id, name: user.name, lastest_weight: user.weight_history[0] || null }
                 })                
 
                 res.json(response);
