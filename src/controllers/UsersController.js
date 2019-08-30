@@ -117,9 +117,9 @@ class UsersController {
 
                 const users = await User.find();
 
-                const response = users.map(user => { 
+                const response = users.map(user => {
                     return { id: user._id, name: user.name, lastest_weight: user.weight_history[0] || null }
-                })                
+                })
 
                 res.json(response);
 
@@ -145,7 +145,13 @@ class UsersController {
                     return res.status(404).json({ error: 'No ha encontrado ningun usuario' });
                 }
 
-                res.json(user);
+                const response = {
+                    id: user._id,
+                    name: user.name, 
+                    weight_history: user.weight_history
+                }
+
+                res.json(response);
 
             } catch (error) {
                 res.status(500).json({ ERROR: error.toString() });
@@ -223,6 +229,40 @@ class UsersController {
 
                 //* Update user with new weight history
                 user = await User.findByIdAndUpdate(user_id, { weight_history: newEntry }, { new: true });
+
+                res.json(user);
+
+            } catch (error) {
+                res.status(500).json({ ERROR: error.toString() });
+            }
+        }
+    }
+
+    /**
+    * @Route '/api/user/:user_id/remove'
+    * @Method PUT 
+    * @Access Protected
+    */
+    removeWeight() {
+        return async (req, res) => {
+            try {
+
+                const { user_id } = req.params;
+                const { reg_id } = req.body;
+
+                //* Find User 
+                let user = await User.findById(user_id);
+                if (!user) {
+                    return res.status(404).json({ error: 'No ha encontrado ningun usuario' });
+                }
+
+                const { weight_history } = user;
+
+                //* add new weight entry and spread current weight history
+                const updatedHistory = weight_history.filter(item => item._id.toString() !== reg_id);
+     
+                //* Update user with updated weight history
+                user = await User.findByIdAndUpdate(user_id, { weight_history: updatedHistory }, { new: true });
 
                 res.json(user);
 

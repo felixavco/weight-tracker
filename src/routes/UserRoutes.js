@@ -21,6 +21,7 @@ class User extends UsersController {
         this.router.get('/:user_id', this.protectedRoute, this.getOne());
         //* PUT ROUTES
         this.router.put('/:user_id/insert', this.protectedRoute, this.insertWeight());
+        this.router.put('/:user_id/remove', this.protectedRoute, this.removeWeight());
         this.router.put('/:user_id', this.protectedRoute, this.update());
         //* DELETE ROUTES
         this.router.delete('/:user_id', this.protectedRoute, this.delete());
