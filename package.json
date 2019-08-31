@@ -10,8 +10,8 @@
   "dev": "nodemon -r dotenv/config ./bin/dev",
   "clean": "rm -rf dist",
   "build": "mkdir dist && babel src -s -d dist",
-  "production": "npm run clean && npm run build && node -r dotenv/config ./bin/production",
-  "start": "npm run production"
+  "production": "npm run clean && npm run build",
+  "start": "node ./bin/production"
  },
  "repository": {
   "type": "git",
