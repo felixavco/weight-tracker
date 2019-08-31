@@ -9,8 +9,7 @@
  "scripts": {
   "dev": "nodemon -r dotenv/config ./bin/dev",
   "clean": "rm -rf dist",
-  "copy": "cp -r src/views dist && cp -r src/public dist && cp -r src/uploads dist",
-  "build": "mkdir dist && babel src -s -d dist && npm run copy ",
+  "build": "mkdir dist && babel src -s -d dist",
   "production": "npm run clean && npm run build && node ./bin/production",
   "start": "npm run production"
  },
