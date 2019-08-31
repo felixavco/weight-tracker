@@ -8,7 +8,7 @@
   "clean": "rm -rf dist",
   "copy": "cp -r src/views dist && cp -r src/public dist && cp -r src/uploads dist",
   "build": "mkdir dist && babel src -s -d dist && npm run copy ",
-  "production": "npm run clean && npm run build && node -r dotenv/config ./bin/production",
+  "production": "npm run clean && npm run build && node ./bin/production",
   "start": "npm run production"
  },
  "repository": {
