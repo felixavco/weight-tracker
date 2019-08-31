@@ -28,6 +28,7 @@ class Server {
 
     routes() {
         this.server.use('/api/user', UserRoutes);
+        this.server.use('**', (req, res) => res.send('Welcome to my Rest API'))
     }
 
     start() {
