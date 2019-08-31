@@ -1,6 +1,6 @@
 import Server from './server';
-const { SERVER_PORT, MONGO_URI } = process.env;
+const { PORT, MONGO_URI } = process.env;
 
-const server = new Server(SERVER_PORT, MONGO_URI);
+const server = new Server(PORT, MONGO_URI);
 
 server.start();
