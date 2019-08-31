@@ -1,7 +1,10 @@
 {
  "name": "weight-tracker",
  "version": "1.0.0",
- "description": "",
+ "engines": {
+    "node": "10.3.0"
+  },
+ "description": "Simple Node Application",
  "main": "index.js",
  "scripts": {
   "dev": "nodemon -r dotenv/config ./bin/dev",
